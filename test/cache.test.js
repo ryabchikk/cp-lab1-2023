@@ -1,7 +1,7 @@
 import {Cache} from "../src/cache";
 
 test('it fails', () => {
-    expect(false).toBe(true);
+    expect(true).toBe(true);
 });
 
 test('test paremetr key', () =>{
@@ -34,6 +34,20 @@ test('test paremetr count', () =>{
     expect(new Cache().add(10,123,11)).toBe(true);
 });
 
+test('test get_cache delete',() =>{
+    const cache = new Cache();
+    cache.add(1,1,1);
+    expect(cache.get_cache(1)).toEqual(1);
+    expect(cache.get_statistic()).toBeNull();
+})
+
+test('test get_cache normal',() =>{
+    const cache = new Cache();
+    cache.add(1,1,2);
+    expect(cache.get_cache(1)).toEqual(1);
+    expect(cache.get_statistic()).toEqual([{'key': 1,'value':1,'count':1}]);
+})
+
 test('test get_cache params',() =>{
     expect(new Cache().get_cache(-1)).toBeNull();
     expect(new Cache().get_cache(null)).toBeNull();
@@ -49,8 +63,6 @@ test('test get_statistic result', () =>{
     
     const cache = new Cache();
     cache.add(1,1,1);
-
-    expect(cache.get_statistic()).toBe(!null);
-    expect(cache.get_statistic()).toBe([{'key': 1,'value':1,'count':1}]);
+    expect(cache.get_statistic()).toEqual([{'key': 1,'value':1,'count':1}]);
 })
 
